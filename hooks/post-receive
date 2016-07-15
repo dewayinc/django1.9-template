@@ -1,0 +1,11 @@
+#!/bin/sh
+APP_PATH=/home/deway/webapps/{{ project_name }}
+while read oldrev newrev refname
+do
+    branch=$(git rev-parse --symbolic --abbrev-ref $refname)
+    if [ "master" == "$branch" ]; then
+        GIT_WORK_TREE=$APP_PATH/{{ project_name }} git checkout -f master
+        GIT_WORK_TREE=$APP_PATH/{{ project_name }} git reset --hard
+        . $APP_PATH/apache2/bin/restart
+    fi
+done

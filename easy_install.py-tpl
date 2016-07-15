@@ -1,0 +1,30 @@
+import os
+import sys
+import argparse
+import subprocess
+
+PATH = '/home/deway/webapps/{{ project_name }}'
+
+os.environ['PYTHONPATH'] = '{}/lib/python2.7'.format(PATH)
+
+parser = argparse.ArgumentParser(description='Install packages.')
+
+parser.add_argument('-p', '--packages', nargs='+', type=str, default=False)
+
+parser.add_argument('-r', '--requirements', nargs='?', type=argparse.FileType('r'), default=False)
+
+args = parser.parse_args()
+
+
+def install_package(package):
+    command = "easy_install-2.7 --install-dir={path}/lib/python2.7 --script-dir={path}/bin {package}".format(path=PATH, package=package)
+    subprocess.call([command], shell=True)
+
+if args.requirements:
+    for package in args.requirements.readlines():
+        install_package(package)
+elif args.packages:
+    for package in args.packages:
+        install_package(package)
+else:
+    sys.exit()
