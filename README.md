@@ -85,14 +85,21 @@ um `easy_install` customizado para prover a instalação de aplicações de terc
     python2.7 easy_install.py -r requirements.txt
     
     ```
-19. Crie um arquivo `.env` como no exemplo abaixo na pasta raiz do projeto, ele deve ficar no mesmo local em que o `manage.py`. Mais informações sobre o formato do arquivo pode ser encontrado [aqui](http://django-environ.readthedocs.io/en/latest/).
+18. Crie um arquivo `.env` como no exemplo abaixo na pasta raiz do projeto, ele deve ficar no mesmo local em que o `manage.py`. Mais informações sobre o formato do arquivo pode ser encontrado [aqui](http://django-environ.readthedocs.io/en/latest/).
     
         SECRET_KEY=K89Zz9H0pj2e8xCXEH1ac7PSqx2s4JXy
         DEBUG=True
         ALLOWED_HOSTS=*
         DATABASE_URL=postgres://user:password@host:port/db_name
-   
-18. Reinicie o servidor.
+
+
+19. No servidor entre `cd $HOME/webapps/myapp/myapp/` e execute.
+
+    ```bash
+    python2.7 manage.py collectstatic --noinput
+    
+    ```
+19. Reinicie o servidor.
 
     ```bash
     source  $HOME/webapps/myapp/apache2/bin/restart
