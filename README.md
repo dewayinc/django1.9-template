@@ -41,7 +41,7 @@ um `easy_install` customizado para prover a instalação de aplicações de terc
     git clone ssh://deway@web<SERVER>.webfaction.com/home/deway/webapps/myapp/myapp.git
     
     ```    
-8. Caso não tenha instalado, [Instale virtualenv](https://virtualenv.pypa.io/en/stable/installation/).
+8. Em sua maquina caso não tenha instalado, [Instale virtualenv](https://virtualenv.pypa.io/en/stable/installation/).
 
 9. Crie e ative uma virtualenv.
 
@@ -95,7 +95,9 @@ um `easy_install` customizado para prover a instalação de aplicações de terc
 
 19. No servidor entre `cd $HOME/webapps/myapp/myapp/` e execute.
 
-    ```bash
+    ```bash    
+    python2.7 manage.py migrate 
+    
     python2.7 manage.py collectstatic --noinput
     
     ```
@@ -107,3 +109,23 @@ um `easy_install` customizado para prover a instalação de aplicações de terc
     ```
 
 
+# Configurando  Ambiente de desenvolvimento (Vagrant)
+
+
+1. Instale o [Vagrant](https://www.vagrantup.com/).
+
+2. Crie um arquivo `.env` como no exemplo abaixo na pasta raiz do projeto, ele deve ficar no mesmo local em que o `manage.py`. Mais informações sobre o formato do arquivo pode ser encontrado [aqui](http://django-environ.readthedocs.io/en/latest/).
+    
+        SECRET_KEY=K89Zz9H0pj2e8xCXEH1ac7PSqx2s4JXy
+        DEBUG=True
+        ALLOWED_HOSTS=*
+        DATABASE_URL=postgres://user:password@host:port/db_name
+
+3. Entre no diretorio onde fica o `Vagrantfile` e inicie o vagrant.
+
+    ```bash
+    vagrant up
+    
+    ```
+        
+     
