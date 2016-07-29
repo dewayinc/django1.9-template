@@ -4,7 +4,7 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
 
-  config.vm.define "test" do |vm_define|
+  config.vm.define "{{ project_name }}" do |vm_define|
   end
 
   config.vm.network :private_network, ip: "192.168.33.15"
@@ -22,12 +22,16 @@ Vagrant.configure(2) do |config|
 
     # Install dependencies
     apt-get update
-    apt-get install -y python2.7-dev python-virtualenv postgresql postgresql-contrib
+    apt-get install -y python2.7-dev python-virtualenv postgresql postgresql-contrib postgresql-server-dev-9.3
 
     # Create user and database
     sudo -u postgres psql --command="CREATE USER {{ project_name }} WITH PASSWORD '{{ project_name }}';"
     sudo -u postgres psql --command="CREATE DATABASE {{ project_name }} WITH OWNER {{ project_name }};"
     sudo -u postgres psql --command="GRANT ALL PRIVILEGES ON DATABASE {{ project_name }} TO {{ project_name }};"
+
+  SHELL
+
+  config.vm.provision "django", type:"shell", privileged: false, inline:  <<-SHELL
 
     # Config django
     virtualenv venv

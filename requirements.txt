@@ -1,4 +1,4 @@
-django
+django==1.9.8
 psycopg2
 django-environ
 whitenoise
